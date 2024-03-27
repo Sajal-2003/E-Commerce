@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shoppiie</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="navbar">
+        <div>
+          <a href="#"> <p class="logo">SHOPPIIEE</p> </a>
+        </div>
+        <ul class="menu">
+          <li><a href="#home">HOME</a></li>
+          <li><a href="#products">PRODUCTS</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="home" class="Home">
+      <div class="main">
+        <div class="content">
+          <h1>Welcome to E-Commerce Site</h1>
+          <p>One of the most trusted site with good products</p>
+          <button><a href="#products">Our Products</a></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <h2>Our products</h2>
+      <div class="container" id="product-container"></div>
+    </section>
+
+    <script>
+      fetch("https://fakestoreapi.com/products")
+        .then((response) => response.json())
+        .then((data) => {
+          const productContainer = document.getElementById("product-container");
+          data.forEach((product) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+                      <img src="${product.image}" alt="${product.title}">
+                      <h3>${product.title}</h3>
+                      <p><span>Category:</span> ${product.category}</p>
+                      <p><span>Price:</span> $${product.price}</p>
+                      <p><span>Description:</span> ${product.description}</p>
+                  `;
+            productContainer.appendChild(card);
+          });
+        })
+        .catch((error) => console.error("Error fetching products:", error));
+    </script>
+  </body>
+</html>
